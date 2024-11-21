@@ -5,25 +5,23 @@
   <title>Proyecto ARte</title>
   <!-- Meta etiquetas para móviles -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=no">
-  <!-- Enlace al archivo CSS desde el repositorio GitHub -->
-  <link rel="stylesheet" href="https://raw.githubusercontent.com/leoginer/ARte/main/css/styles.css">
+  <!-- Enlace al archivo CSS desde el repositorio GitHub Pages -->
+  <link rel="stylesheet" href="https://leoginer.github.io/ARte/css/styles.css">
   <!-- Importar A-Frame -->
   <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
   <!-- Importar AR.js para A-Frame -->
   <script src="https://raw.githack.com/AR-js-org/AR.js/3.3.2/aframe/build/aframe-ar.js"></script>
-  <!-- Enlace al archivo JavaScript desde el repositorio GitHub -->
-  <script src="https://raw.githubusercontent.com/leoginer/ARte/main/js/app.js"></script>
+  <!-- Enlace al archivo JavaScript desde el repositorio GitHub Pages -->
+  <script src="https://leoginer.github.io/ARte/js/app.js"></script>
 </head>
 <body>
   <!-- Escena de A-Frame -->
-  <a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false;">
+  <a-scene embedded arjs="sourceType: webcam; debugUIEnabled: true; patternRatio: 0.7;">
     
-    <!-- Definición de los marcadores NFT y sus contenidos -->
-
-    <!-- Cuadro 0 -->
+    <!-- Marcador y contenido del Cuadro 0 -->
     <a-nft
       type="nft"
-      url="https://raw.githubusercontent.com/leoginer/ARte/main/assets/markers/marcador0"
+      url="https://leoginer.github.io/ARte/assets/markers/marcador0"
       smooth="true"
       smoothCount="10"
       smoothTolerance="0.01"
@@ -43,7 +41,7 @@
       <!-- Modelo 3D interactivo -->
       <a-entity
         id="model0"
-        gltf-model="https://raw.githubusercontent.com/leoginer/ARte/main/assets/models/modelo0.obj"
+        gltf-model="https://leoginer.github.io/ARte/assets/models/modelo0.obj"
         position="0 0.5 0"
         visible="false"
         scale="0.5 0.5 0.5"
@@ -54,7 +52,7 @@
       <!-- Audio para reproducir al final del video -->
       <a-sound
         id="audio0"
-        src="https://raw.githubusercontent.com/leoginer/ARte/main/assets/audios/audio0.mp3"
+        src="https://leoginer.github.io/ARte/assets/audios/audio0.mp3"
         autoplay="false"
         loop="false"
         position="0 1 0">
@@ -65,7 +63,7 @@
     <!-- Definición del video como textura -->
     <video
       id="videoTexture0"
-      src="https://raw.githubusercontent.com/leoginer/ARte/main/assets/videos/video0.mp4"
+      src="https://leoginer.github.io/ARte/assets/videos/video0.mp4"
       loop="false"
       crossorigin="anonymous"
       preload="auto">
@@ -76,4 +74,3 @@
   </a-scene>
 </body>
 </html>
-
