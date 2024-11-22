@@ -5,7 +5,7 @@
 document.addEventListener("DOMContentLoaded", function () {
   // Configuración para los 15 cuadros: incluye IDs, efectos personalizados y audio asociado
   const cuadros = [
-    { markerId: "trex", videoId: "videoTexture0", modelId: "model0", audioId: "audio0", effect: "float" },
+    { markerId: "trex", videoId: "videoTexture0", modelId: "trex", audioId: "audio0", effect: "float" },
     { markerId: "marker0", videoId: "videoTexture0", modelId: "model0", audioId: "audio0", effect: "float" },
     { markerId: "marker1", videoId: "videoTexture1", modelId: "model1", audioId: "audio1", effect: "scale" },
     { markerId: "marker2", videoId: "videoTexture2", modelId: "model2", audioId: "audio2", effect: "bounce" },
