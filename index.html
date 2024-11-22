@@ -40,7 +40,7 @@
 <body style="margin: 0; overflow: hidden;">
 
   <!-- Minimal Loader -->
-  <div class="arjs-loader">
+  <div class="arjs-loader" id="loading">
     <div>Loading, please wait...</div>
   </div>
 
@@ -48,8 +48,9 @@
   <a-scene
     vr-mode-ui="enabled: false;"
     renderer="logarithmicDepthBuffer: true; precision: medium;"
-    embedded arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;">
-
+    embedded arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;"
+    loading-screen="enabled: false;">
+    
     <!-- Cámara con cursor interactivo -->
     <a-entity camera>
       <a-cursor
@@ -108,7 +109,65 @@
       preload="auto">
     </video>
 
-    <!-- Repite el bloque anterior para los cuadros 1 al 15 -->
+
+    <!-- Marcador y contenido del trex -->
+    <a-nft
+      type="nft"
+      url="https://leoginer.github.io/ARte/assets/markers/trex"
+      smooth="true" smoothCount="10" smoothTolerance="0.01" smoothThreshold="5"
+      id="marker-trex">
+      
+      <!-- Plano para el video time-lapse -->
+      <a-plane
+        id="video-plane-trex"
+        position="0 0 0"
+        rotation="-90 0 0"
+        width="1"
+        height="1.4"
+        material="shader: flat; src: #videoTexture-trex">
+      </a-plane>
+      
+      <!-- Modelo 3D interactivo -->
+      <a-entity
+        id="model-trex"
+        gltf-model="https://leoginer.github.io/ARte/assets/models/trex.gltf"
+        position="0 0.5 0"
+        visible="false"
+        scale="0.5 0.5 0.5"
+        class="clickable"
+        animation__rotate="property: rotation; to: 0 360 0; loop: true; dur: 10000">
+      </a-entity>
+
+      <!-- Audio para reproducir al final del video -->
+      <a-sound
+        id="audio-trex"
+        src="https://leoginer.github.io/ARte/assets/audios/audio-trex.mp3"
+        autoplay="false"
+        loop="false"
+        position="0 1 0">
+      </a-sound>
+      
+    </a-nft>
+    
+    <!-- Definición del video como textura -->
+    <video
+      id="videoTexture-trex"
+      src="https://leoginer.github.io/ARte/assets/videos/video-trex.mp4"
+      loop="false"
+      crossorigin="anonymous"
+      preload="auto">
+    </video>
+
   </a-scene>
+
+  <!-- Script para ocultar el cargador cuando se cargan los descriptores -->
+  <script>
+    document.addEventListener("arjs-nft-loaded", () => {
+      const loader = document.getElementById("loading");
+      if (loader) loader.style.display = "none";
+    });
+  </script>
 </body>
 </html>
+
+
