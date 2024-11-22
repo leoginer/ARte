@@ -2,54 +2,22 @@
 <html>
 <head>
   <title>Proyecto ARte</title>
-
-  <!-- Estilo para el cargador 
-  <style>
-    .arjs-loader {
-      height: 100%;
-      width: 100%;
-      position: absolute;
-      top: 0;
-      left: 0;
-      background-color: rgba(0, 0, 0, 0.8);
-      z-index: 9999;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    .arjs-loader div {
-      text-align: center;
-      font-size: 1.25em;
-      color: white;
-    }
-  </style> -->
-
-  <!-- Importar estilos -->
   <link rel="stylesheet" href="https://leoginer.github.io/ARte/css/styles.css">
 
   <!-- Importar A-Frame -->
-  <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
-  <!-- script de AR.JS con soporte de marker + location -->
-  <script src="https://jeromeetienne.github.io/AR.js/aframe/build/aframe-ar.js"></script>
-
-  <!-- Importar el archivo de JavaScript -->
-  <script src="https://leoginer.github.io/ARte/js/app.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@1.3.0/dist/aframe-master.min.js"></script>
+  <!-- Importar AR.js para A-Frame (NFT) -->
+  <script src="https://cdn.jsdelivr.net/npm/ar.js@3.3.2/aframe/build/aframe-ar-nft.js"></script>
 </head>
 
 <body style="margin: 0px; overflow: hidden;">
 
-  <!-- Minimal Loader 
-  <div class="arjs-loader" id="loading">
-    <div>Loading, please wait...</div>
-  </div> -->
-
-  <!-- Escena de A-Frame -->
   <a-scene
     vr-mode-ui="enabled: false;"
     renderer="logarithmicDepthBuffer: true; precision: medium;"
-    embedded arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;"
+    embedded arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: true;"
     loading-screen="enabled: false;">
-    
+
     <!-- Cámara con cursor interactivo -->
     <a-entity camera>
       <a-cursor
@@ -60,26 +28,23 @@
       </a-cursor>
     </a-entity>
 
-    <!-- Marcador y contenido del Cuadro 0 -->
+    <!-- Marcador NFT marcador0 -->
     <a-nft
       type="nft"
       url="https://leoginer.github.io/ARte/assets/markers/marcador0"
-      smooth="true" smoothCount="10" smoothTolerance="0.01" smoothThreshold="5"
-      id="marker0">
+      smooth="true" smoothCount="10" smoothTolerance="0.01" smoothThreshold="5">
       
-      <!-- Plano para el video time-lapse -->
       <a-plane
-        id="video-plane0"
+        id="video-plane-marcador0"
         position="0 0 0"
         rotation="-90 0 0"
         width="1"
         height="1.4"
-        material="shader: flat; src: #videoTexture0">
+        material="shader: flat; src: #videoTexture-marcador0">
       </a-plane>
-      
-      <!-- Modelo 3D interactivo -->
+
       <a-entity
-        id="model0"
+        id="model-marcador0"
         gltf-model="https://leoginer.github.io/ARte/assets/models/modelo0.obj"
         position="0 0.5 0"
         visible="false"
@@ -88,35 +53,21 @@
         animation__rotate="property: rotation; to: 0 360 0; loop: true; dur: 10000">
       </a-entity>
 
-      <!-- Audio para reproducir al final del video -->
       <a-sound
-        id="audio0"
+        id="audio-marcador0"
         src="https://leoginer.github.io/ARte/assets/audios/audio0.mp3"
         autoplay="false"
         loop="false"
         position="0 1 0">
       </a-sound>
-      
     </a-nft>
-    
-    <!-- Definición del video como textura -->
-    <video
-      id="videoTexture0"
-      src="https://leoginer.github.io/ARte/assets/videos/video0.mp4"
-      loop="false"
-      crossorigin="anonymous"
-      preload="auto">
-    </video>
 
-
-    <!-- Marcador y contenido del trex -->
+    <!-- Marcador NFT trex -->
     <a-nft
       type="nft"
       url="https://leoginer.github.io/ARte/assets/markers/trex"
-      smooth="true" smoothCount="10" smoothTolerance="0.01" smoothThreshold="5"
-      id="marker-trex">
+      smooth="true" smoothCount="10" smoothTolerance="0.01" smoothThreshold="5">
       
-      <!-- Plano para el video time-lapse -->
       <a-plane
         id="video-plane-trex"
         position="0 0 0"
@@ -125,8 +76,7 @@
         height="1.4"
         material="shader: flat; src: #videoTexture-trex">
       </a-plane>
-      
-      <!-- Modelo 3D interactivo -->
+
       <a-entity
         id="model-trex"
         gltf-model="https://leoginer.github.io/ARte/assets/models/trex.gltf"
@@ -137,7 +87,6 @@
         animation__rotate="property: rotation; to: 0 360 0; loop: true; dur: 10000">
       </a-entity>
 
-      <!-- Audio para reproducir al final del video -->
       <a-sound
         id="audio-trex"
         src="https://leoginer.github.io/ARte/assets/audios/audio-trex.mp3"
@@ -145,28 +94,28 @@
         loop="false"
         position="0 1 0">
       </a-sound>
-      
     </a-nft>
-    
-    <!-- Definición del video como textura -->
-    <video
-      id="videoTexture-trex"
-      src="https://leoginer.github.io/ARte/assets/videos/video-trex.mp4"
-      loop="false"
-      crossorigin="anonymous"
-      preload="auto">
-    </video>
-
   </a-scene>
 
-  <!-- Script para ocultar el cargador cuando se cargan los descriptores -->
   <script>
+    // Depuración: Muestra si los marcadores han sido cargados correctamente
     document.addEventListener("arjs-nft-loaded", () => {
-      const loader = document.getElementById("loading");
-      if (loader) loader.style.display = "none";
+      console.log("Marcadores cargados correctamente.");
+    });
+
+    // Depuración: Muestra si el marcador se detecta o pierde
+    document.querySelectorAll("a-nft").forEach(marker => {
+      marker.addEventListener("markerFound", () => {
+        console.log(`Marcador detectado: ${marker.getAttribute('url')}`);
+      });
+      marker.addEventListener("markerLost", () => {
+        console.log(`Marcador perdido: ${marker.getAttribute('url')}`);
+      });
     });
   </script>
+
 </body>
 </html>
+
 
 
