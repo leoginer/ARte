@@ -12,13 +12,17 @@
 
 <body style="margin: 0px; overflow: hidden;">
 
-  <a-scene
+  <!-- <a-scene
     vr-mode-ui="enabled: false;"
     renderer="logarithmicDepthBuffer: true; precision: medium;"
     embedded arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: true;"
-    loading-screen="enabled: false;">
+    loading-screen="enabled: false;"> -->
 
-    <!-- Cámara con cursor interactivo -->
+    <a-scene
+    embedded arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: true;">
+  
+
+    <!-- Cámara con cursor interactivo 
     <a-entity camera>
       <a-cursor
         id="cursor"
@@ -26,7 +30,9 @@
         raycaster="objects: .clickable"
         material="color: white; opacity: 0.5">
       </a-cursor>
-    </a-entity>
+    </a-entity> -->
+
+    <a-entity camera></a-entity>
 
     <!-- Marcador NFT marcador0 -->
     <a-nft
@@ -67,33 +73,7 @@
       type="nft"
       url="https://leoginer.github.io/ARte/assets/markers/trex"
       smooth="true" smoothCount="10" smoothTolerance="0.01" smoothThreshold="5">
-      
-      <a-plane
-        id="video-plane-trex"
-        position="0 0 0"
-        rotation="-90 0 0"
-        width="1"
-        height="1.4"
-        material="shader: flat; src: #videoTexture-trex">
-      </a-plane>
-
-      <a-entity
-        id="model-trex"
-        gltf-model="https://leoginer.github.io/ARte/assets/models/trex.gltf"
-        position="0 0.5 0"
-        visible="false"
-        scale="0.5 0.5 0.5"
-        class="clickable"
-        animation__rotate="property: rotation; to: 0 360 0; loop: true; dur: 10000">
-      </a-entity>
-
-      <a-sound
-        id="audio-trex"
-        src="https://leoginer.github.io/ARte/assets/audios/audio-trex.mp3"
-        autoplay="false"
-        loop="false"
-        position="0 1 0">
-      </a-sound>
+      <a-box position="0 0.5 0" material="color: blue;"></a-box>
     </a-nft>
   </a-scene>
 
