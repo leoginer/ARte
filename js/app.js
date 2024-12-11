@@ -1,88 +1,89 @@
 // Configuración de los marcadores
-// Cada objeto en el array representa un marcador con su ID, video, modelo 3D, audio, y efecto asociado
 const cuadros = [
   { markerId: "marcador0", videoId: "videoTexture-marcador0", modelId: "model-marcador0", audioId: "audio-marcador0", effect: "float" },
   { markerId: "marcador1", videoId: "videoTexture-marcador1", modelId: "model-marcador1", audioId: "audio-marcador1", effect: "scale" },
-  // Agrega aquí más marcadores (hasta 15)
+  // Agrega aquí más marcadores si es necesario
 ];
 
 // Iteramos sobre cada marcador configurado
 cuadros.forEach(({ markerId, videoId, modelId, audioId, effect }) => {
-  // Selección del marcador en la escena basado en su atributo `url`
   const marker = document.querySelector(`a-nft[url*="${markerId}"]`);
-
-  // Referencias a los elementos del DOM (video, modelo 3D, audio)
   const video = document.getElementById(videoId);
   const model = document.getElementById(modelId);
   const audio = document.getElementById(audioId);
 
-  // Controla si el marcador está visible en el momento
   let markerVisible = false;
+  let markerLostTimeout;
 
-  // Evento: El marcador es detectado por la cámara
+  // Log de inicialización
+  console.log(`Configurando marcador: ${markerId}`);
+
+  // Evento: Marcador detectado
   marker.addEventListener("markerFound", () => {
     console.log(`Marcador detectado: ${markerId}`);
+    clearTimeout(markerLostTimeout);
     markerVisible = true;
-    video.play(); // Reproduce el video asociado
+    video.play();
+    console.log(`Video ${videoId} reproduciéndose.`);
   });
 
-  // Evento: El marcador se pierde de vista
+  // Evento: Marcador perdido
   marker.addEventListener("markerLost", () => {
     console.log(`Marcador perdido: ${markerId}`);
-    markerVisible = false;
-    video.pause(); // Pausa el video
-    video.currentTime = 0; // Reinicia el video al principio
-    model.setAttribute("visible", "false"); // Oculta el modelo 3D
-    if (audio.components && audio.components.sound) {
-      audio.components.sound.stopSound(); // Detiene el audio
-    }
+    markerLostTimeout = setTimeout(() => {
+      markerVisible = false;
+      video.pause();
+      video.currentTime = 0;
+      console.log(`Video ${videoId} pausado y reiniciado.`);
+      model.setAttribute("visible", "false");
+      console.log(`Modelo ${modelId} oculto.`);
+      if (audio.components && audio.components.sound) {
+        audio.components.sound.stopSound();
+        console.log(`Audio ${audioId} detenido.`);
+      }
+    }, 500);
   });
 
-  // Evento: Cuando el video termina de reproducirse
+  // Evento: Video finalizado
   video.addEventListener("ended", () => {
     if (markerVisible) {
       console.log(`Video terminado: ${videoId}`);
-      model.setAttribute("visible", "true"); // Muestra el modelo 3D
+      model.setAttribute("visible", "true");
+      console.log(`Modelo ${modelId} visible.`);
       if (audio.components && audio.components.sound) {
-        audio.components.sound.playSound(); // Reproduce el audio asociado
+        audio.components.sound.playSound();
+        console.log(`Audio ${audioId} reproduciéndose.`);
       }
     }
   });
 
-  // Evento: Interacción con el modelo 3D (por ejemplo, clic)
+  // Evento: Interacción con el modelo
   model.addEventListener("click", () => {
-    console.log(`Modelo 3D interactuado: ${modelId}`);
-    // Aplica un efecto dependiendo de la configuración
+    console.log(`Modelo interactuado: ${modelId}`);
     switch (effect) {
       case "float":
-        model.setAttribute("animation__float", {
-          property: "position",
-          to: "0 1.1 0",
-          dur: 1000,
-          dir: "alternate",
-          loop: false,
-        });
+        model.setAttribute("animation", "property: position; to: 0 1.2 -2; dur: 1000; dir: alternate;");
+        console.log("Efecto 'float' aplicado.");
         break;
-
       case "scale":
-        model.setAttribute("animation__scale", {
-          property: "scale",
-          to: "0.7 0.7 0.7",
-          dur: 200,
-          dir: "alternate",
-          loop: false,
-        });
+        model.setAttribute("animation", "property: scale; to: 1 1 1; dur: 500; dir: alternate;");
+        console.log("Efecto 'scale' aplicado.");
         break;
-
-      // Agrega más efectos según sea necesario
       default:
         console.warn(`Efecto desconocido: ${effect}`);
-        break;
     }
   });
+
+  // Log para asegurar que el audio se reproduce después de una interacción explícita
+  document.addEventListener("click", () => {
+    if (audio.components && audio.components.sound) {
+      audio.components.sound.playSound();
+      console.log(`Audio ${audioId} activado por interacción.`);
+    }
+  }, { once: true });
 });
 
-// Logs generales para todos los marcadores (si son necesarios fuera del bucle)
+// Logs generales para todos los marcadores
 document.querySelectorAll("a-nft").forEach(marker => {
   marker.addEventListener("markerFound", () => {
     console.log(`Marcador detectado globalmente: ${marker.getAttribute('url')}`);
@@ -92,3 +93,4 @@ document.querySelectorAll("a-nft").forEach(marker => {
     console.log(`Marcador perdido globalmente: ${marker.getAttribute('url')}`);
   });
 });
+

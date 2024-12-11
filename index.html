@@ -40,7 +40,9 @@
   <a-scene
     vr-mode-ui="enabled: false;"
     renderer="logarithmicDepthBuffer: true; precision: medium;"
-    embedded arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;">
+    embedded arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;"
+    loading-screen="enabled: false"
+    cursor="rayOrigin: mouse">
 
     <!-- Activos como videos o imágenes -->
     <a-assets>
@@ -58,20 +60,18 @@
       smooth="true" smoothCount="10" smoothTolerance="0.01" smoothThreshold="5">
       
       <a-plane
-        id="video-plane-marcador0" 
-        crossorigin="anonymous"
+        id="video-plane-marcador0"
         position="0 1.5 -2"
         rotation="0 0 0"
-        width="2"
-        height="1.5"
+        width="3"
+        height="2"
         material="shader: flat; src: #videoTexture-marcador0">
       </a-plane>
 
       <a-entity
         id="model-marcador0"
-        crossorigin="anonymous"
         gltf-model="https://leoginer.github.io/ARte/assets/models/modelo0.gltf"
-        position="0 0 0"
+        position="0 0.5 -2"
         visible="false"
         scale="0.5 0.5 0.5"
         class="clickable"
@@ -80,7 +80,6 @@
 
       <a-sound
         id="audio-marcador0"
-        crossorigin="anonymous"
         src="https://leoginer.github.io/ARte/assets/audios/audio0.mp3"
         autoplay="false"
         loop="false"
@@ -91,37 +90,21 @@
   </a-scene>
 
   <script>
-    // Depuración: Muestra si los marcadores han sido cargados correctamente
-    document.addEventListener("arjs-nft-loaded", () => {
-      console.log("Marcadores cargados correctamente.");
-    });
-
-    // Depuración: Muestra si el marcador se detecta o pierde
-    document.querySelectorAll("a-nft").forEach(marker => {
-      marker.addEventListener("markerFound", () => {
-        console.log(`Marcador detectado: ${marker.getAttribute('url')}`);
-      });
-      marker.addEventListener("markerLost", () => {
-        console.log(`Marcador perdido: ${marker.getAttribute('url')}`);
-      });
-    });
-
-    // Este evento se dispara cuando el DOM está completamente cargado y listo para manipulación.
+    // Log cuando el DOM se carga completamente
     document.addEventListener("DOMContentLoaded", () => {
-     console.log("DOM completamente cargado. Escena de A-Frame inicializando...");
-    // Esto asegura que los elementos de la escena estén disponibles antes de interactuar con ellos.
+      console.log("DOM completamente cargado. Escena de A-Frame inicializando...");
     });
 
-    // Este evento se dispara cuando los marcadores NFT han sido cargados exitosamente por AR.js.
+    // Log cuando los marcadores NFT están cargados
     document.addEventListener("arjs-nft-loaded", () => {
-     console.log("Marcadores NFT cargados correctamente.");
-    // Oculta el mensaje de carga (loader) para mostrar la experiencia AR.
-    document.querySelector(".arjs-loader").style.display = "none";
+      console.log("Marcadores NFT cargados correctamente.");
+      document.querySelector(".arjs-loader").style.display = "none"; // Oculta el loader
     });
   </script>
 
 </body>
 </html>
+
 
 
 
