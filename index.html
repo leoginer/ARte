@@ -102,6 +102,19 @@
         console.log(`Marcador perdido: ${marker.getAttribute('url')}`);
       });
     });
+
+    // Este evento se dispara cuando el DOM está completamente cargado y listo para manipulación.
+    document.addEventListener("DOMContentLoaded", () => {
+     console.log("DOM completamente cargado. Escena de A-Frame inicializando...");
+    // Esto asegura que los elementos de la escena estén disponibles antes de interactuar con ellos.
+    });
+
+    // Este evento se dispara cuando los marcadores NFT han sido cargados exitosamente por AR.js.
+    document.addEventListener("arjs-nft-loaded", () => {
+     console.log("Marcadores NFT cargados correctamente.");
+    // Oculta el mensaje de carga (loader) para mostrar la experiencia AR.
+    document.querySelector(".arjs-loader").style.display = "none";
+    });
   </script>
 
 </body>
