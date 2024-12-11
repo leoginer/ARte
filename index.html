@@ -3,10 +3,9 @@
 <head>
   <title>Proyecto ARte</title>
   <link rel="stylesheet" href="https://leoginer.github.io/ARte/css/styles.css">
-
-  <!-- Importar A-Frame -->
+  
+  <!-- A-Frame y AR.js -->
   <script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@1c2407b26c61958baa93967b5412487cd94b290b/dist/aframe-master.min.js"></script>
-  <!-- Importar AR.js para A-Frame (NFT) -->
   <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
 </head>
 
@@ -32,19 +31,15 @@
 
 <body style="margin: 0px; overflow: hidden;">
 
-  <!-- minimal loader shown until image descriptors are loaded -->
   <div class="arjs-loader">
-    <div>Cargando la experiencia.</div>
+    <div>Cargando la experiencia...</div>
   </div>
 
   <a-scene
     vr-mode-ui="enabled: false;"
     renderer="logarithmicDepthBuffer: true; precision: medium;"
-    embedded arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;"
-    loading-screen="enabled: false"
-    cursor="rayOrigin: mouse">
-
-    <!-- Activos como videos o imágenes -->
+    embedded arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;">
+    
     <a-assets>
       <video id="videoTexture-marcador0" crossorigin="anonymous" autoplay muted playsinline>
         <source src="https://leoginer.github.io/ARte/assets/videos/video0.mp4" type="video/mp4">
@@ -53,25 +48,26 @@
 
     <a-entity camera></a-entity>
 
-    <!-- Marcador NFT marcador0 -->
     <a-nft
       type="nft"
       url="https://leoginer.github.io/ARte/assets/markers/marcador0/marcador0"
       smooth="true" smoothCount="10" smoothTolerance="0.01" smoothThreshold="5">
       
       <a-plane
-        id="video-plane-marcador0"
+        id="video-plane-marcador0" 
+        crossorigin="anonymous"
         position="0 1.5 -2"
         rotation="0 0 0"
-        width="3"
-        height="2"
+        width="2"
+        height="1.5"
         material="shader: flat; src: #videoTexture-marcador0">
       </a-plane>
 
       <a-entity
         id="model-marcador0"
+        crossorigin="anonymous"
         gltf-model="https://leoginer.github.io/ARte/assets/models/modelo0.gltf"
-        position="0 0.5 -2"
+        position="0 0 0"
         visible="false"
         scale="0.5 0.5 0.5"
         class="clickable"
@@ -80,6 +76,7 @@
 
       <a-sound
         id="audio-marcador0"
+        crossorigin="anonymous"
         src="https://leoginer.github.io/ARte/assets/audios/audio0.mp3"
         autoplay="false"
         loop="false"
@@ -90,15 +87,22 @@
   </a-scene>
 
   <script>
-    // Log cuando el DOM se carga completamente
     document.addEventListener("DOMContentLoaded", () => {
-      console.log("DOM completamente cargado. Escena de A-Frame inicializando...");
+      console.log("DOM completamente cargado. Escena inicializando...");
     });
 
-    // Log cuando los marcadores NFT están cargados
     document.addEventListener("arjs-nft-loaded", () => {
       console.log("Marcadores NFT cargados correctamente.");
-      document.querySelector(".arjs-loader").style.display = "none"; // Oculta el loader
+      document.querySelector(".arjs-loader").style.display = "none";
+    });
+
+    document.addEventListener("click", () => {
+      const audioContext = AFRAME.utils.audioContext();
+      if (audioContext.state !== 'running') {
+        audioContext.resume().then(() => {
+          console.log("AudioContext iniciado tras interacción del usuario.");
+        });
+      }
     });
   </script>
 
