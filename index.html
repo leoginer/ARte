@@ -44,7 +44,7 @@
 
     <!-- Activos como videos o imágenes -->
     <a-assets>
-      <video id="videoTexture-marcador0" autoplay muted playsinline>
+      <video id="videoTexture-marcador0" crossorigin="anonymous" autoplay muted playsinline>
         <source src="https://leoginer.github.io/ARte/assets/videos/video0.mp4" type="video/mp4">
       </video>
     </a-assets>
@@ -58,7 +58,8 @@
       smooth="true" smoothCount="10" smoothTolerance="0.01" smoothThreshold="5">
       
       <a-plane
-        id="video-plane-marcador0"
+        id="video-plane-marcador0" 
+        crossorigin="anonymous"
         position="0 1.5 -2"
         rotation="0 0 0"
         width="2"
@@ -68,6 +69,7 @@
 
       <a-entity
         id="model-marcador0"
+        crossorigin="anonymous"
         gltf-model="https://leoginer.github.io/ARte/assets/models/modelo0.gltf"
         position="0 0 0"
         visible="false"
@@ -78,6 +80,7 @@
 
       <a-sound
         id="audio-marcador0"
+        crossorigin="anonymous"
         src="https://leoginer.github.io/ARte/assets/audios/audio0.mp3"
         autoplay="false"
         loop="false"
