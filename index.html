@@ -42,22 +42,12 @@
     renderer="logarithmicDepthBuffer: true; precision: medium;"
     embedded arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;">
 
-    <!-- Cámara con cursor interactivo 
-    <a-entity camera>
-      <a-cursor
-        id="cursor"
-        fuse="false"
-        raycaster="objects: .clickable"
-        material="color: white; opacity: 0.5">
-      </a-cursor>
-    </a-entity> -->
-
-      <!-- Activos como videos o imágenes -->
-  <a-assets>
-    <video id="videoTexture-marcador0" autoplay muted playsinline>
-      <source src="https://leoginer.github.io/ARte/assets/videos/video0.mp4" type="video/mp4">
-    </video>
-  </a-assets>
+    <!-- Activos como videos o imágenes -->
+    <a-assets>
+      <video id="videoTexture-marcador0" autoplay muted playsinline>
+        <source src="https://leoginer.github.io/ARte/assets/videos/video0.mp4" type="video/mp4">
+      </video>
+    </a-assets>
 
     <a-entity camera></a-entity>
 
@@ -95,13 +85,6 @@
       </a-sound>
     </a-nft>
 
-    <!-- Marcador NFT trex -->
-    <a-nft
-      type="nft"
-      url="https://leoginer.github.io/ARte/assets/markers/trex"
-      smooth="true" smoothCount="10" smoothTolerance="0.01" smoothThreshold="5">
-      <a-box position="0 0.5 0" material="color: blue;"></a-box>
-    </a-nft>
   </a-scene>
 
   <script>
@@ -123,6 +106,7 @@
 
 </body>
 </html>
+
 
 
 
